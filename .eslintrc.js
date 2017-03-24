@@ -5,6 +5,6 @@ module.exports = {
         "process": true
     },
     "rules": {
-        "undeclared_a": 0
+        "no-var": 0
     }
 };
