@@ -4,7 +4,8 @@
   "description": "A sample Node.js app using Express 4",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "node ./node_modules/eslint/bin/eslint.js index.js"
   },
   "dependencies": {
     "eslint": "^3.18.0",
