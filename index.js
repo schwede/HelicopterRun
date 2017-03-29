@@ -1,11 +1,43 @@
+var bodyParser = require('body-parser');
 var express = require('express');
+var HighScores = require('./highScores.js');
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
 
 app.get('/', function(request, response) {
   response.send('Hello World!');
+});
+
+app.get('/api/clearHighScores', function(request, response) {
+  HighScores.clearAll();
+  response.status(200);
+  response.setHeader('content-type', 'application/json');
+  response.send(JSON.stringify(HighScores.getAll()));
+});
+
+app.get('/api/getHighScores', function(request, response) {
+  response.status(200);
+  response.setHeader('content-type', 'application/json');
+  response.send(JSON.stringify(HighScores.getAll()));
+});
+
+app.post('/api/addHighScore', function(request, response) {
+  let success = HighScores.add({
+    username: request.body.username,
+    value: request.body.value,
+    location: request.body.location,
+  });
+
+  if(success) {
+    response.status(200);
+    response.send('High score added.');
+  } else {
+    response.status(400);
+    response.send('Failed to add high score.');
+  }
 });
 
 app.listen(app.get('port'), function() {

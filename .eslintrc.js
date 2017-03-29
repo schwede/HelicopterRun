@@ -5,6 +5,11 @@ module.exports = {
         "process": true
     },
     "rules": {
-        "no-var": 0
+        "no-var": 0,
+        "new-cap": 0,
+        "require-jsdoc": 0,
+    },
+    "env": {
+        "es6": true
     }
 };
