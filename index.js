@@ -1,15 +1,17 @@
 var bodyParser = require('body-parser');
 var express = require('express');
-var HighScores = require('./highScores.js');
+var HighScores = require('./server/highScores.js');
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
+
+app.use(function(request, response, next) {
+  console.log(new Date(), request.ip, request.method, request.url);
+  next();
+});
+
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
-
-app.get('/', function(request, response) {
-  response.send('Hello World!');
-});
 
 app.get('/api/clearHighScores', function(request, response) {
   HighScores.clearAll();
