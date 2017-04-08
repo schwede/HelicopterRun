@@ -4,6 +4,7 @@
   let timeOut = 1000;
   let highScores = [];
 
+  // Make a fetch request from the api for the scores
   function requestScores() {
     let url = window.location.origin + '/api/getHighscores';
 
@@ -14,6 +15,7 @@
       }),
     });
 
+    // Fetch api uses promises and callbacks
     fetch(request).then((requestPromise) => {
       return requestPromise.json();
     }).then((response) => {
@@ -24,6 +26,7 @@
     });
   }
 
+  // Display the scores formatted onto the DOM
   function renderScores() {
     scoresElement = document.getElementById('scores-list');
     scoresElement.innerHTML = '';
@@ -34,11 +37,13 @@
    });
   }
 
+  // Set up the page with current high scores
   function init() {
     console.log('Initializing page.');
     requestScores();
   }
 
+  // Spin and request the scores again after the timeout
   function loop() {
     let currentTime = performance.now();
 
