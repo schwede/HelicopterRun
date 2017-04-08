@@ -1,7 +1,7 @@
 
 (() => {
   let lastTime = performance.now();
-  let timeOut = 1000 * 5;
+  let timeOut = 1000 * 1;
   let highScores = [];
 
   function requestScores() {
@@ -22,16 +22,25 @@
       highScores = response;
 
       console.log('Got the scores!');
-      highScores.forEach((score) => {
-        console.log('Username:', score.username);
-      });
+      renderScores();
     }).catch((err) => {
       console.log('Could not reach api:', err);
     });
   }
 
+  function renderScores() {
+    scoresElement = document.getElementById('scores-list');
+    scoresElement.innerHTML = '';
+
+    highScores.forEach((score) => {
+      let entry = '<li>' + score.username + ': ' + score.value + '</li>';
+      scoresElement.innerHTML += entry;
+   });
+  }
+
   function init() {
     console.log('Initializing page.');
+    requestScores();
   }
 
   function loop() {
