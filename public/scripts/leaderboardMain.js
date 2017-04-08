@@ -1,13 +1,11 @@
 
 (() => {
   let lastTime = performance.now();
-  let timeOut = 1000 * 1;
+  let timeOut = 1000;
   let highScores = [];
 
   function requestScores() {
     let url = window.location.origin + '/api/getHighscores';
-    let headers = new Headers();
-    headers.set('Content-Type', 'application/json');
 
     let request = new Request(url, {
       method: 'GET',
@@ -20,8 +18,6 @@
       return requestPromise.json();
     }).then((response) => {
       highScores = response;
-
-      console.log('Got the scores!');
       renderScores();
     }).catch((err) => {
       console.log('Could not reach api:', err);
