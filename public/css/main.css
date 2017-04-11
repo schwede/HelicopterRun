@@ -1,4 +1,23 @@
 
-#main-menu {
+ul {
   list-style: none;
+}
+
+body {
+  background-color: deepskyblue;
+  text-align: center;
+}
+
+.btn {
+  border-radius: 12px;
+  border: 2px solid blue;
+  margin: 10px;
+  width: 140px;
+  height: 50px;
+  background-color: steelblue;
+  font-size: 20px;
+}
+
+.btn:focus {
+  outline:none;
 }
