@@ -1,3 +1,13 @@
+* {
+    padding: 0;
+     margin: 0;
+}
+
+canvas { 
+    background: #c9c9c9;
+    display: block;
+    margin: 0 auto; 
+}
 
 #main-menu {
   list-style: none;
