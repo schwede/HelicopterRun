@@ -12,6 +12,7 @@ var states = {
 var framesPassed = 0;
 
 // Game Elements
+var pipeGap = 130;
 var helicopter = {
     x: 80,
     y: 0,
@@ -83,11 +84,38 @@ var helicopter = {
     },
 };
 var pipes = {
-    update: function() {
+    pipeArray: [],
 
+    clear: function() {
+        this.pipeArray = [];
+    },
+
+    update: function() {
+        if (framesPassed % 100 === 0) {
+            var top = canvas.height - pipeTop.height + 120
+                         + 200 * Math.random();
+            this.pipeArray.push({
+                x: 500,
+                y: top,
+                width: pipeTop.width,
+                height: pipeTop.height,
+            });
+        }
+        for (let i = 0; i < this.pipeArray.length; i++) {
+            let pipe = this.pipeArray[i];
+            pipe.x -= 2;
+            if (pipe.x < -50) {
+                this.pipeArray.splice(i, 1);
+                i--;
+            }
+        }
     },
     draw: function() {
-
+        for (let i = 0; i < this.pipeArray.length; i++) {
+            let pipe = this.pipeArray[i];
+            pipeTop.draw(context, pipe.x, pipe.y);
+            pipeBottom.draw(context, pipe.x, pipe.y - pipeGap - pipe.height);
+        }
     },
 };
 

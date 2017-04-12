@@ -12,7 +12,9 @@ function gameLoop() {
 function update(timePassed) {
   framesPassed++;
   helicopter.update();
-  pipes.update();
+  if (gameState === states.play) {
+      pipes.update();
+  }
 }
 
 function getInput(event) {
