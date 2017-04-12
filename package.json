@@ -8,34 +8,32 @@
     "test": "node ./node_modules/eslint/bin/eslint.js index.js server/*.js"
   },
   "dependencies": {
-    "body-parser": "^1.17.1",
+    "babel-eslint": "^7.2.1",
     "eslint": "^3.18.0",
+    "eslint-config-defaults": "^9.0.0",
+    "body-parser": "^1.17.1",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-config-google": "^0.7.1",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
-    "eslint-plugin-react": "^6.10.3",
-    "express": "^4.13.3",
-    "webpack": "^2.3.1"
+    "express": "^4.13.3"
   },
   "engines": {
     "node": "4.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-sample"
+    "url": "https://github.com/schwede/HelicopterRun"
   },
   "keywords": [
     "node",
-    "heroku",
     "express"
   ],
-  "author": "Dakota Raymond",
+  "author": "Swede Struve, Dakota Raymond",
   "contributors": [],
   "license": "MIT",
   "devDependencies": {
     "eslint": "^3.18.0",
-    "eslint-config-google": "^0.7.1",
-    "webpack-dev-server": "^2.4.2"
+    "eslint-config-google": "^0.7.1"
   }
 }
