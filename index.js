@@ -10,7 +10,10 @@ app.use(function(request, response, next) {
   next();
 });
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public', {
+  maxage: 3600 * 1000,
+}));
+
 app.use(bodyParser.json());
 
 app.get('/api/clearHighScores', function(request, response) {

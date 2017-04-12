@@ -1,4 +1,8 @@
 
 #scores-list {
-  list-style: none;
+  font-size: 20px;
+}
+
+.score-entry {
+  margin: 10px;
 }

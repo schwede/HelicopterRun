@@ -31,7 +31,8 @@
     scoresElement.innerHTML = '';
 
     highScores.forEach((score) => {
-      let entry = '<li>' + score.username + ': ' + score.value + '</li>';
+      let pair = score.username + ': ' + score.value;
+      let entry = '<li class=\"score-entry\">' + pair + '</li>';
       scoresElement.innerHTML += entry;
    });
   }

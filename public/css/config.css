@@ -1,4 +1,8 @@
 
 .keyLabel {
-  font-size: 30px;
+  font-size: 40px;
+}
+
+#pause, #thrust, #start {
+  margin-right: 60px;
 }
