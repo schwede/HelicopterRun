@@ -5,12 +5,19 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "node ./node_modules/eslint/bin/eslint.js index.js"
+    "test": "node ./node_modules/eslint/bin/eslint.js index.js server/*.js"
   },
   "dependencies": {
+<<<<<<< HEAD
     "babel-eslint": "^7.2.1",
     "eslint": "^3.18.0",
     "eslint-config-defaults": "^9.0.0",
+=======
+    "body-parser": "^1.17.1",
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-google": "^0.7.1",
+>>>>>>> master
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "express": "^4.13.3"

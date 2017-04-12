@@ -1,0 +1,42 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Helicopter Run</title>
+  <meta name="description" content="A flappy bird style game.">
+  <meta name="author" content="Swede Struve, Dakota Raymond">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/config.css">
+  <script type="text/javascript" src="scripts/localStorage.js"></script>
+  <script type="text/javascript" src="scripts/input.js"></script>
+  <script type="text/javascript" src="scripts/configMain.js" defer></script>
+</head>
+<body>
+  <ul id="config-menu">
+    <li>
+      <h1>Config Controls</h1>
+    </li>
+    <li>
+      <button id="start" class="btn">Start</button>
+      <label id="startLabel" class="keyLabel" for="start">' '</label>
+    </li>
+    <li>
+      <button id="thrust" class="btn">Thrust</button>
+      <label id="thrustLabel" class="keyLabel" for="thrust">' '</label>
+    </li>
+    <li>
+      <button id="pause" class="btn">Pause</button>
+      <label id="pauseLabel" class="keyLabel" for="pause">'Escape'</label>
+    </li>
+  </ul>
+  <ul>
+    <li>
+      <button id="save" class="btn">Save</button>
+    </li>
+    <li>
+      <input type="button" class="btn" onclick="location.href='index.html';" value="Back" />
+    </li>
+  </ul>
+</body>
+</html>
