@@ -9,6 +9,7 @@
     keys.forEach((otherKey) => {
       let labelId = otherKey + 'Label';
       document.getElementById(otherKey).style.fontWeight = 'normal';
+      document.getElementById(otherKey).style.border = '2px solid blue';
       document.getElementById(labelId).style.fontWeight = 'normal';
     });
   }
@@ -19,6 +20,7 @@
 
     let labelId = key + 'Label';
     document.getElementById(key).style.fontWeight = 'bold';
+    document.getElementById(key).style.border = '2px solid black';
     document.getElementById(labelId).style.fontWeight = 'bold';
   }
 
