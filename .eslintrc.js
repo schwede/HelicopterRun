@@ -6,7 +6,7 @@ module.exports = {
     },
     "rules": {
         "no-var": 0,
-        "linebreak-style": 0
+        "linebreak-style": 0,
         "new-cap": 0,
         "require-jsdoc": 0,
         "no-unused-vars": 0,
