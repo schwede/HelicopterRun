@@ -2,7 +2,6 @@
 (() => {
   let lastTime = performance.now();
   let timeOut = 1000;
-  let highScores = [];
 
   // Make a fetch request from the api for the scores
   function requestScores() {
@@ -19,15 +18,15 @@
     fetch(request).then((requestPromise) => {
       return requestPromise.json();
     }).then((response) => {
-      highScores = response;
-      renderScores();
+      renderScores(response);
+      return response;
     }).catch((err) => {
       console.log('Could not reach api:', err);
     });
   }
 
   // Display the scores formatted onto the DOM
-  function renderScores() {
+  function renderScores(highScores) {
     scoresElement = document.getElementById('scores-list');
     scoresElement.innerHTML = '';
 

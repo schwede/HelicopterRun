@@ -1,6 +1,7 @@
 var lastFire = performance.now();
+document.addEventListener('keypress', getInput);
 
-function gameLoop () {
+function gameLoop() {
   var timePassed = performance.now() - lastFire;
   lastFire = performance.now();
   update(timePassed);
@@ -8,10 +9,31 @@ function gameLoop () {
   requestAnimationFrame(gameLoop);
 }
 
-function update (timePassed) {
-
+function update(timePassed) {
+  framesPassed++;
+  helicopter.update();
+  pipes.update();
 }
 
-function render (timePassed) {
+function getInput(event) {
+  switch (gameState) {
+    case states.entry:
+      gameState = states.play;
+      helicopter.processJump();
+      break;
 
+    case states.play:
+      helicopter.processJump();
+      break;
+
+    case states.end:
+      break;
+
+  }
+}
+
+function render(timePassed) {
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  helicopter.draw(context);
+  pipes.draw(context);
 }
