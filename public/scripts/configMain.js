@@ -61,7 +61,7 @@
     document.getElementById('save').onclick = () => {
       selected = 'none';
       clearBold();
-      LocalStorage.saveUsername(username);
+      LocalStorage.saveUsername(document.getElementById('username').value);
       LocalStorage.saveInputConfiguration(config);
     };
   }
