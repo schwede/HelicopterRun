@@ -2,6 +2,9 @@
 var canvas = document.getElementById('gameScreen');
 var context = canvas.getContext('2d');
 
+var input = Input();
+var config = LocalStorage.getInputConfiguration();
+
 // Game State
 var gameState = 0;
 var states = {
@@ -146,6 +149,7 @@ var heliAnimationFrame = 0;
 var img = new Image();
 img.onload = function() {
     initSprites(this);
+    init();
     gameLoop();
 };
 img.src = 'assets/sheet.png';
