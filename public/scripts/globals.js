@@ -22,6 +22,7 @@ var helicopter = {
     frame: 0,
     bladeSpeed: 0,
     rotation: 0,
+    radius: 27,
     gravity: 0.25,
     jump: 4.6,
     velocity: 0,
@@ -68,7 +69,7 @@ var helicopter = {
                 this.bladeSpeed -= .05;
             }
             // Update rotation
-            if (this.velocity >= this.jump && 
+            if (this.velocity >= this.jump &&
                 this.y < canvas.height - heli[this.frame].height * 1.5) {
                 this.rotation = Math.min(Math.PI/2, this.rotation + 0.05);
             } else if (this.y < canvas.height - heli[this.frame].height * 1.5) {
@@ -106,6 +107,26 @@ var pipes = {
         }
         for (let i = 0; i < this.pipeArray.length; i++) {
             let pipe = this.pipeArray[i];
+
+            if (i === 0 || i === 1 || i === 2) {
+                var closestX = Math.min(Math.max(helicopter.x, pipe.x),
+                                                 pipe.x + pipe.width);
+                var closestYTop = Math.min(Math.max(helicopter.y, pipe.y),
+                                                    pipe.y + pipe.height);
+                var closestYBottom = Math.max(pipe.y - pipeGap,
+                                            pipe.y - 2 * pipe.height - pipeGap);
+                var distanceX = helicopter.x - closestX;
+                var distanceTop = helicopter.y - closestYTop;
+                var distanceBottom = helicopter.y - closestYBottom;
+                var circleDistance = distanceX * distanceX +
+                                     distanceTop * distanceTop;
+                var circleDistance2 = distanceX * distanceX +
+                                      distanceBottom * distanceBottom;
+                var radius = helicopter.radius * helicopter.radius;
+                if (radius > circleDistance2 || radius > circleDistance) {
+                    gameState = states.end;
+                }
+            }
             pipe.x -= 2;
             if (pipe.x < -50) {
                 this.pipeArray.splice(i, 1);

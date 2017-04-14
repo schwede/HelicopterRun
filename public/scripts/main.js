@@ -28,6 +28,6 @@ function update(timePassed) {
 
 function render(timePassed) {
   context.clearRect(0, 0, canvas.width, canvas.height);
-  helicopter.draw(context);
   pipes.draw(context);
+  helicopter.draw(context);
 }
