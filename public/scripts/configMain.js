@@ -2,6 +2,7 @@
 (() => {
   let input = Input();
   let config = LocalStorage.getInputConfiguration();
+  let username = LocalStorage.getUsername();
   let keys = ['start', 'thrust', 'pause'];
   let selected = 'none';
 
@@ -40,6 +41,12 @@
       document.getElementById(labelId).innerText = text;
     });
 
+    document.getElementById('usernameButton').onclick = () => {
+      username = document.getElementById('username').value;
+    };
+
+    document.getElementById('username').value = username;
+
     // Register key presses from the input subsystem
     input.registerCatchAllKeyPress((event) => {
       if(selected !== 'none') {
@@ -54,6 +61,7 @@
     document.getElementById('save').onclick = () => {
       selected = 'none';
       clearBold();
+      LocalStorage.saveUsername(username);
       LocalStorage.saveInputConfiguration(config);
     };
   }

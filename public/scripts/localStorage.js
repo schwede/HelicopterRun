@@ -79,7 +79,7 @@ let LocalStorage = (() => {
   that.savePersonalBest = (newScore) => {
     if(validatePersonalBest(newScore)) {
       localStorage[SCORE_KEY] = JSON.stringify(newScore);
-      console.log('Saved personal best');
+      console.log('Saved personal best of', newScore);
     }
   };
 

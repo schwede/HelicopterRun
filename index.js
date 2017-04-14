@@ -11,7 +11,7 @@ app.use(function(request, response, next) {
 });
 
 app.use(express.static(__dirname + '/public', {
-  maxage: 3600 * 1000,
+  maxage: 10 * 1000,
 }));
 
 app.use(bodyParser.json());
