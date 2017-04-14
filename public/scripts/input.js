@@ -4,27 +4,40 @@ function Input() {
   let that = {};
 
   let keyRegistry = {};
-  let keyEvents = [];
+  let keyCallbacks = [];
+
   let catchAllRegistry = [];
-  let catchAllKeys = [];
+  let catchAllToProcess = [];
 
   // Record events triggered by the browser
   function onKeyPress(event) {
     if(keyRegistry[event.key] != null) {
-      keyEvents.push(keyRegistry[event.key]);
+      keyRegistry[event.key].forEach((callback) => {
+        keyCallbacks.push(callback);
+      });
     }
 
-    catchAllKeys.push(event);
+    catchAllToProcess.push(event);
   }
 
   // Add a key press registration
   that.registerKeyPress = (key, callback) => {
-    keyRegistry[key] = callback;
+    if(keyRegistry[key] == null) {
+      keyRegistry[key] = [];
+    }
+
+    keyRegistry[key].push(callback);
   };
 
   // Remove a key press registration
   that.unregisterKeyPress = (key, callback) => {
-    delete keyRegistry[key];
+    if(keyRegistry[key] != null) {
+      let index = keyRegistry[key].indexOf(callback);
+
+      if(index !== -1) {
+        keyRegistry[key].splice(index, 1);
+      }
+    }
   };
 
   // Add a catch-all registration
@@ -35,8 +48,9 @@ function Input() {
   // Remove a catch-all registration
   that.unregisterCatchAllKeyPress = (callback) => {
     let index = catchAllRegistry.indexOf(callback);
-    if(index >= 0) {
-      catchAllRegistry.splice(index, 1);
+
+    if(index !== -1) {
+      catchAllRegistry.splice(index);
     }
   };
 
@@ -48,18 +62,18 @@ function Input() {
 
   // Handle all the events since last update
   that.update = () => {
-    keyEvents.forEach((callback) => {
+    keyCallbacks.forEach((callback) => {
       callback();
     });
 
     catchAllRegistry.forEach((callback) => {
-      catchAllKeys.forEach((keyEvent) => {
-        callback(keyEvent);
+      catchAllToProcess.forEach((event) => {
+        callback(event);
       });
     });
 
-    keyEvents = [];
-    catchAllKeys = [];
+    keyCallbacks = [];
+    catchAllToProcess = [];
   };
 
   window.addEventListener('keypress', onKeyPress);

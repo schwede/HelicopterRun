@@ -1,5 +1,13 @@
 var lastFire = performance.now();
-document.addEventListener('keypress', getInput);
+
+function init() {
+  input.registerKeyPress(config.thrust, () => {
+    if(gameState != states.end) {
+      gameState = states.play;
+      helicopter.processJump();
+    }
+  });
+}
 
 function gameLoop() {
   var timePassed = performance.now() - lastFire;
@@ -11,26 +19,10 @@ function gameLoop() {
 
 function update(timePassed) {
   framesPassed++;
+  input.update();
   helicopter.update();
   if (gameState === states.play) {
       pipes.update();
-  }
-}
-
-function getInput(event) {
-  switch (gameState) {
-    case states.entry:
-      gameState = states.play;
-      helicopter.processJump();
-      break;
-
-    case states.play:
-      helicopter.processJump();
-      break;
-
-    case states.end:
-      break;
-
   }
 }
 
