@@ -6,9 +6,13 @@ let LocalStorage = (() => {
   // Key names for the local storage
   let CONFIG_KEY = 'inputConfig';
   let SCORE_KEY = 'bestScore';
+  let USERNAME_KEY = 'userName';
 
   // Default value for personal best bestScore
   let score = 0;
+
+  // Default username
+  let username = 'default';
 
   // Default configuration for input controls
   let config = {
@@ -28,6 +32,17 @@ let LocalStorage = (() => {
       && config.thrust != null
       && config.pause != null;
   }
+
+  // Get the username from the local storage if it exists
+  that.getUsername = () => {
+    let raw = localStorage.getItem(USERNAME_KEY);
+
+    if(raw != null) {
+      username = JSON.parse(raw);
+    }
+
+    return username;
+  };
 
   // Get the personal best score from the local storage if it exists
   that.getPersonalBest = () => {
@@ -64,8 +79,14 @@ let LocalStorage = (() => {
   that.savePersonalBest = (newScore) => {
     if(validatePersonalBest(newScore)) {
       localStorage[SCORE_KEY] = JSON.stringify(newScore);
-      console.log('Saved personal best');
+      console.log('Saved personal best of', newScore);
     }
+  };
+
+  // Save the username
+  that.saveUsername = (name) => {
+    localStorage[USERNAME_KEY] = JSON.stringify(name);
+    console.log('Saved username');
   };
 
   // Save the configuration to local storage as long as it's valid
