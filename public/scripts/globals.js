@@ -4,6 +4,8 @@ var context = canvas.getContext('2d');
 
 var input = Input();
 var config = LocalStorage.getInputConfiguration();
+var username = LocalStorage.getUsername();
+var score = 0;
 
 // Game State
 var gameState = 0;
@@ -125,11 +127,13 @@ var pipes = {
                 var radius = helicopter.radius * helicopter.radius;
                 if (radius > circleDistance2 || radius > circleDistance) {
                     gameState = states.end;
+                    handleGameOver();
                 }
             }
             pipe.x -= 2;
             if (pipe.x < -50) {
                 this.pipeArray.splice(i, 1);
+                score++;
                 i--;
             }
         }
