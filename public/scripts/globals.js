@@ -50,6 +50,9 @@ var helicopter = {
                 this.y = canvas.height - heli[this.frame].height * 1.5;
                 this.velocity = this.jump;
             }
+            if (this.y <= 0) {
+                gameState = states.end;
+            }
             // Update animation frame
             if (this.bladeSpeed > 4) {
                 this.frame += 3;
