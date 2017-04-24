@@ -54,6 +54,9 @@ var helicopter = {
                 this.velocity = this.jump;
                 handleGameOver();
             }
+            if (this.y <= 0) {
+                gameState = states.end;
+            }
             // Update animation frame
             if (this.bladeSpeed > 4) {
                 this.frame += 3;
