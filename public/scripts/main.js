@@ -40,7 +40,7 @@ function sendScore() {
 
 function handleGameOver() {
   console.log('Game over condition');
-  input.unregisterAllCommands();
+  explosionSound.play();
 
   sendScore();
 
@@ -48,6 +48,13 @@ function handleGameOver() {
   if(score > best) {
     LocalStorage.savePersonalBest(score);
   }
+
+  gameState = states.end;
+  cancelAnimationFrame(gameloop);
+}
+
+function handleDied() {
+  input.unregisterAllCommands();
 }
 
 function gameLoop() {

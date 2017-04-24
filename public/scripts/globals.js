@@ -5,6 +5,9 @@ var context = canvas.getContext('2d');
 var input = Input();
 var config = LocalStorage.getInputConfiguration();
 var username = LocalStorage.getUsername();
+var explosionSound = SoundEffect({
+    source: 'audio/explosion.mp3',
+});
 var score = 0;
 
 // Game State
@@ -49,6 +52,7 @@ var helicopter = {
             if (this.y >= canvas.height - heli[this.frame].height * 1.5) {
                 this.y = canvas.height - heli[this.frame].height * 1.5;
                 this.velocity = this.jump;
+                handleGameOver();
             }
             // Update animation frame
             if (this.bladeSpeed > 4) {
@@ -127,7 +131,7 @@ var pipes = {
                 var radius = helicopter.radius * helicopter.radius;
                 if (radius > circleDistance2 || radius > circleDistance) {
                     gameState = states.end;
-                    handleGameOver();
+                    handleDied();
                 }
             }
             pipe.x -= 2;
