@@ -115,8 +115,7 @@ var pipes = {
                                                  pipe.x + pipe.width);
                 var closestYTop = Math.min(Math.max(helicopter.y, pipe.y),
                                                     pipe.y + pipe.height);
-                var closestYBottom = Math.max(pipe.y - pipeGap,
-                                            pipe.y - 2 * pipe.height - pipeGap);
+                var closestYBottom = Math.min(helicopter.y, pipe.y - pipeGap);
                 var distanceX = helicopter.x - closestX;
                 var distanceTop = helicopter.y - closestYTop;
                 var distanceBottom = helicopter.y - closestYBottom;
