@@ -28,4 +28,6 @@ function initSprites(img) {
 	];
 	pipeTop = new Sprite(img, 251, 0, 26, 200);
 	pipeBottom = new Sprite(img, 277, 0, 26, 200);
+	background = new Sprite(img, 310, 0, 500, 500);
+	foreground = new Sprite(img, 310, 250, 500, 500);
 }
