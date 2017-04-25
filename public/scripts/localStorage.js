@@ -7,6 +7,10 @@ let LocalStorage = (() => {
   let CONFIG_KEY = 'inputConfig';
   let SCORE_KEY = 'bestScore';
   let USERNAME_KEY = 'userName';
+  let REPLAY_KEY = 'replays';
+
+  // Default replay list
+  let replays = [];
 
   // Default value for personal best bestScore
   let score = 0;
@@ -31,6 +35,27 @@ let LocalStorage = (() => {
     return config.start != null
       && config.thrust != null
       && config.pause != null;
+  }
+
+  // Check whether replays are valid
+  function validateReplays(value) {
+    if(value == []) {
+      return true;
+    }
+
+    value.forEach((replay) => {
+      if(replay.seed == null || replay.score == null) {
+        return false;
+      }
+
+      replay.jumpFrames.forEach((frame) => {
+        if(frame == null) {
+          return false;
+        }
+      });
+    });
+
+    return true;
   }
 
   // Get the username from the local storage if it exists
@@ -75,6 +100,22 @@ let LocalStorage = (() => {
     return config;
   };
 
+  // Get replay list from local storage if it exists
+  that.getReplays = () => {
+    let raw = localStorage.getItem(REPLAY_KEY);
+
+    if(raw !== null) {
+      let temp = JSON.parse(raw);
+
+      if(validateReplays(temp)) {
+        replays = temp;
+      }
+    }
+
+    console.log('Retrieved game replays');
+    return replays;
+  };
+
   // Save the personal best as long as it's valid
   that.savePersonalBest = (newScore) => {
     if(validatePersonalBest(newScore)) {
@@ -94,6 +135,23 @@ let LocalStorage = (() => {
     if(validateInputConfiguration(config)) {
       localStorage[CONFIG_KEY] = JSON.stringify(config);
       console.log('Saved input configuration');
+    }
+  };
+
+  // Save the replays to local storage as long as they are valid
+  that.saveReplays = (newReplays) => {
+    console.log(newReplays);
+    newReplays.sort((a, b) => {
+      return b.score - a.score;
+    });
+
+    while(newReplays.length > 3) {
+      newReplays.splice(newReplays.length - 1, 1);
+    }
+
+    if(validateReplays(newReplays)) {
+      localStorage[REPLAY_KEY] = JSON.stringify(newReplays);
+      console.log('Saved replays');
     }
   };
 

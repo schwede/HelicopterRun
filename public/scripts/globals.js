@@ -5,6 +5,7 @@ var context = canvas.getContext('2d');
 var input = Input();
 var config = LocalStorage.getInputConfiguration();
 var username = LocalStorage.getUsername();
+var replays = LocalStorage.getReplays();
 var explosionSound = SoundEffect({
     source: 'audio/explosion.mp3',
 });
@@ -13,6 +14,10 @@ var wooshSound = SoundEffect({
 });
 var score = 0;
 var gameOver = false;
+
+var replay = {
+    jumpFrames: [],
+};
 
 // Particle options
 const particlesPerExplosion = 30;
@@ -51,6 +56,8 @@ var helicopter = {
 		wooshSound.play();
         this.bladeSpeed = 5;
         this.velocity = -this.jump;
+
+        replay.jumpFrames.push(framesPassed);
     },
     update: function() {
         // Auto fly if game has not started
@@ -287,6 +294,12 @@ function particle(x, y, color) {
     this.g = '222';
     this.b = '222';
   }
+}
+
+// Credit: http://indiegamr.com/generate-repeatable-random-numbers-in-js/
+function seededRandom() {
+    Math.seed = (Math.seed * 9301 + 49297) % 233280;
+    return Math.seed / 233280.0;
 }
 
 function randInt(min, max, positive) {

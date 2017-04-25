@@ -1,6 +1,9 @@
 var lastFire = performance.now();
 
 function init() {
+  Math.seed = performance.now();
+  replay.seed = Math.seed;
+
   input.registerKeyPress(config.thrust, () => {
     if(gameState != states.end) {
       gameState = states.play;
@@ -42,11 +45,17 @@ function handleGameOver() {
   console.log('Game over condition');
   explosionSound.play();
 
+  // Server determines whether the score belongs on the leaderboard
   sendScore();
 
   let best = LocalStorage.getPersonalBest();
   if(score > best) {
     LocalStorage.savePersonalBest(score);
+
+    // Keep the replay if you broke your record
+    replay.score = score;
+    replays.push(replay);
+    LocalStorage.saveReplays(replays);
   }
 
   gameState = states.end;
