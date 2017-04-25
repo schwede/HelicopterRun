@@ -50,7 +50,7 @@ function handleGameOver() {
   }
 
   gameState = states.end;
-  cancelAnimationFrame(gameloop);
+  gameOver = true;
 }
 
 function handleDied() {
@@ -67,7 +67,6 @@ function gameLoop() {
 
 function update(timePassed) {
   framesPassed++;
-
   input.update();
   helicopter.update();
   if (gameState === states.play) {
@@ -77,6 +76,9 @@ function update(timePassed) {
 
 function render(timePassed) {
   context.clearRect(0, 0, canvas.width, canvas.height);
+  drawBackground(context);
   pipes.draw(context);
+  drawForeground(context);
   helicopter.draw(context);
+  drawExplosion(context);
 }
