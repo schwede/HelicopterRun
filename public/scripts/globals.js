@@ -36,6 +36,32 @@ var states = {
 };
 var framesPassed = 0;
 
+function resetGame() {
+    framesPassed = 0;
+    resetExplosions();
+    resetHelicopter();
+    resetPipes();
+
+    gameState = states.play;
+    gameOver = false;
+}
+
+function resetPipes() {
+    pipes.clear();
+}
+
+function resetExplosions() {
+    explosions.splice(0, explosions.length);
+}
+
+function resetHelicopter() {
+    helicopter.x = 80;
+    helicopter.y = canvas.height - 270 + 5 * Math.cos(framesPassed/15);
+    helicopter.frame = 0;
+    helicopter.bladeSpeed = 0;
+    helicopter.velocity = 0;
+}
+
 // Game Elements
 var pipeGap = 130;
 var pipeNumber = 0;
@@ -56,8 +82,6 @@ var helicopter = {
 		wooshSound.play();
         this.bladeSpeed = 5;
         this.velocity = -this.jump;
-
-        replay.jumpFrames.push(framesPassed);
     },
     update: function() {
         // Auto fly if game has not started
@@ -152,7 +176,7 @@ var pipes = {
                 }
             });
             var top = canvas.height - pipeTop.height + 120
-                         + 200 * Math.random();
+                         + 200 * seededRandom();
             this.pipeArray.push({
                 x: 500,
                 y: top,
@@ -212,13 +236,10 @@ var pipes = {
 // Sprites
 var heli;
 var heliAnimationFrame = 0;
+
 var img = new Image();
-img.onload = function() {
-    initSprites(this);
-    init();
-    gameLoop();
-};
 img.src = 'assets/newSheet.png';
+
 var pipeBottom;
 var pipeTop;
 var background;

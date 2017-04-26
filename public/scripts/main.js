@@ -7,6 +7,8 @@ function init() {
   input.registerKeyPress(config.thrust, () => {
     if(gameState != states.end) {
       gameState = states.play;
+
+      replay.jumpFrames.push(framesPassed);
       helicopter.processJump();
     }
   });

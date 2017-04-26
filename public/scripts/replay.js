@@ -1,11 +1,52 @@
 
 function startReplay(index) {
-  console.log('Running replay:', index);
+  // Set up the replay
+  let currentReplay = replays[index];
+  Math.seed = currentReplay.seed;
+
+  input = InputFeeder(currentReplay);
+
+  resetGame();
+  gameLoop();
 }
 
-let replays = LocalStorage.getReplays();
+// Override game over condition
+handleGameOver = () => {
+  console.log('Game over condition');
+  explosionSound.play();
+
+  gameState = states.end;
+  gameOver = true;
+};
+
+// Creating a mock input object
+function InputFeeder(replay) {
+  let that = {};
+  let data = replay;
+  let frameCount = 0;
+  let index = 0;
+
+  that.update = () => {
+    if(data.jumpFrames[index] === frameCount) {
+      if(gameState !== states.end) {
+        helicopter.processJump();
+        index++;
+      }
+    }
+
+    frameCount++;
+  };
+
+  that.unregisterAllCommands = () => {
+  };
+
+  return that;
+}
+
+initSprites(img);
 let div = document.getElementById('replayButtons');
 
+// Set up the replay buttons
 if(replays.length === 0) {
   div.innerHTML = 'There are no replays saved yet.';
 } else {
@@ -19,7 +60,6 @@ if(replays.length === 0) {
   }
 
   for(let i = 0; i < replays.length; i++) {
-    console.log('registering callback on', `replay${i}`);
     document.getElementById(`replay${i}`).onclick = () => {
       startReplay(i);
     };
