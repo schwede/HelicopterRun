@@ -58,11 +58,14 @@
     });
 
     // Handle selecting which item to change
-    document.getElementById('save').onclick = () => {
+    document.getElementById('backAndSave').onclick = () => {
       selected = 'none';
       clearBold();
       LocalStorage.saveUsername(document.getElementById('username').value);
       LocalStorage.saveInputConfiguration(config);
+
+      // After saving, go back to main page
+      location.href = 'index.html';
     };
   }
 
