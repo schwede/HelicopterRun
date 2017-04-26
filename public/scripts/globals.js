@@ -5,6 +5,7 @@ var context = canvas.getContext('2d');
 var input = Input();
 var config = LocalStorage.getInputConfiguration();
 var username = LocalStorage.getUsername();
+var replays = LocalStorage.getReplays();
 var explosionSound = SoundEffect({
     source: 'audio/explosion.mp3',
 });
@@ -13,6 +14,10 @@ var wooshSound = SoundEffect({
 });
 var score = 0;
 var gameOver = false;
+
+var replay = {
+    jumpFrames: [],
+};
 
 // Particle options
 const particlesPerExplosion = 30;
@@ -30,6 +35,40 @@ var states = {
     end: 2,
 };
 var framesPassed = 0;
+
+function resetGame() {
+    framesPassed = 0;
+    resetExplosions();
+    resetHelicopter();
+    resetPipes();
+    resetTimers();
+
+    gameState = states.entry;
+    gameOver = false;
+}
+
+function resetTimers() {
+    lastFire = performance.now();
+    lastSecond = 0;
+    totalTime = 0;
+}
+
+function resetPipes() {
+    pipeNumber = 0;
+    pipes.clear();
+}
+
+function resetExplosions() {
+    explosions.splice(0, explosions.length);
+}
+
+function resetHelicopter() {
+    helicopter.x = 80;
+    helicopter.y = canvas.height - 270 + 5;
+    helicopter.frame = 0;
+    helicopter.bladeSpeed = 5;
+    helicopter.velocity = 0;
+}
 
 // Game Elements
 var pipeGap = 130;
@@ -145,7 +184,7 @@ var pipes = {
                 }
             });
             var top = canvas.height - pipeTop.height + 120
-                         + 200 * Math.random();
+                         + 200 * seededRandom();
             this.pipeArray.push({
                 x: 500,
                 y: top,
@@ -179,7 +218,6 @@ var pipes = {
             }
             pipe.x -= 2;
             if (pipe.x < -50) {
-                console.log(this.pipeArray[i].ghosts);
                 this.pipeArray.splice(i, 1);
                 score++;
                 i--;
@@ -204,14 +242,10 @@ var pipes = {
 
 // Sprites
 var heli;
-var heliAnimationFrame = 0;
+
 var img = new Image();
-img.onload = function() {
-    initSprites(this);
-    init();
-    gameLoop();
-};
 img.src = 'assets/newSheet.png';
+
 var pipeBottom;
 var pipeTop;
 var background;
@@ -287,6 +321,12 @@ function particle(x, y, color) {
     this.g = '222';
     this.b = '222';
   }
+}
+
+// Credit: http://indiegamr.com/generate-repeatable-random-numbers-in-js/
+function seededRandom() {
+    Math.seed = (Math.seed * 9301 + 49297) % 233280;
+    return Math.seed / 233280.0;
 }
 
 function randInt(min, max, positive) {
