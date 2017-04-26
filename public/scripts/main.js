@@ -105,4 +105,5 @@ function render(timePassed) {
   drawForeground(context);
   helicopter.draw(context);
   drawExplosion(context);
+  drawScore(context);
 }

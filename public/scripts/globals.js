@@ -371,3 +371,11 @@ function drawForeground(context) {
     foreground.draw(context, 0, canvas.height - heli[0].height * 1.1);
 }
 
+function drawScore(context) {
+    context.fillStyle = '#000000';
+    context.font = '48px serif';
+
+    let w = canvas.width * (.93 - .05 * (score.toString().length - 1));
+    context.fillText(score, w, canvas.height * .96);
+}
+
