@@ -1,6 +1,8 @@
 
 function startReplay(index) {
   // Set up the replay
+  cancelAnimationFrame(animationRequest);
+
   let currentReplay = replays[index];
   Math.seed = currentReplay.seed;
   console.log('Setting seed:', Math.seed);
