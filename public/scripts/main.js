@@ -1,5 +1,4 @@
 var lastFire = performance.now();
-var timeStep = 1 / 60 * 1000;
 var fps = 0;
 var lastSecond = 0;
 var totalTime = 0;
@@ -13,8 +12,8 @@ function init() {
     if(gameState != states.end) {
       gameState = states.play;
 
-      helicopter.processJump();
       replay.jumpFrames.push(framesPassed);
+      helicopter.processJump();
     }
   });
 }
@@ -83,11 +82,8 @@ function gameLoop() {
     lastSecond = 0;
   }
 
-  // Set to 60 FPS
-  if(timePassed >= timeStep) {
-    update(timePassed);
-    render(timePassed);
-  }
+  update(timePassed);
+  render(timePassed);
 
   requestAnimationFrame(gameLoop);
   lastFire = performance.now();
@@ -109,4 +105,5 @@ function render(timePassed) {
   drawForeground(context);
   helicopter.draw(context);
   drawExplosion(context);
+  drawScore(context);
 }

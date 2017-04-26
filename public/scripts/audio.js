@@ -17,6 +17,7 @@ function SoundEffect(spec) {
   }
 
   that.play = () => {
+    audoObj.currentTime = 0;
     audoObj.play();
   };
 
