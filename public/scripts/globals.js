@@ -85,8 +85,6 @@ var helicopter = {
     jump: 4.6,
     velocity: 0,
     processJump: function() {
-        wooshSound.pause();
-		wooshSound.currentTime = 0;
 		wooshSound.play();
         this.bladeSpeed = 5;
         this.velocity = -this.jump;
