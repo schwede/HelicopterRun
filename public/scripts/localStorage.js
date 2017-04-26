@@ -16,7 +16,7 @@ let LocalStorage = (() => {
   let score = 0;
 
   // Default username
-  let username = 'default';
+  let username = 'username';
 
   // Default configuration for input controls
   let config = {
