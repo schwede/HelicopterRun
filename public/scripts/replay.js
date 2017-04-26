@@ -15,6 +15,7 @@ function startReplay(index) {
 handleGameOver = () => {
   explosionSound.play();
 
+  console.log(`Player dead. Game ran at ${fps} fps`);
   gameState = states.end;
   gameOver = true;
 };

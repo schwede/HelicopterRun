@@ -54,6 +54,7 @@ function handleGameOver() {
   // Server determines whether the score belongs on the leaderboard
   sendScore();
 
+  console.log(`Player dead. Game ran at ${fps} fps`);
   let best = LocalStorage.getPersonalBest();
   if(score > best) {
     LocalStorage.savePersonalBest(score);
@@ -69,7 +70,6 @@ function handleGameOver() {
 }
 
 function handleDied() {
-  console.log(`Player dead. Game ran at ${fps} fps`);
   input.unregisterAllCommands();
 }
 
@@ -77,7 +77,6 @@ function gameLoop() {
   var timePassed = performance.now() - lastFire;
   totalTime += timePassed;
   lastSecond += timePassed;
-  lastFire = performance.now();
 
   if(lastSecond >= 1000) {
     fps = Math.round(framesPassed / (totalTime / 1000));
@@ -88,11 +87,10 @@ function gameLoop() {
   if(timePassed >= timeStep) {
     update(timePassed);
     render(timePassed);
-
-    fps++;
   }
 
   requestAnimationFrame(gameLoop);
+  lastFire = performance.now();
 }
 
 function update(timePassed) {
