@@ -76,6 +76,12 @@ function Input() {
     catchAllToProcess = [];
   };
 
+  // Turn off input events
+  that.disable = () => {
+    that.unregisterAllCommands();
+    window.removeEventListener('keypress', onKeyPress);
+  };
+
   window.addEventListener('keypress', onKeyPress);
 
   return that;

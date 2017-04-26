@@ -41,12 +41,20 @@ function resetGame() {
     resetExplosions();
     resetHelicopter();
     resetPipes();
+    resetTimers();
 
-    gameState = states.play;
+    gameState = states.entry;
     gameOver = false;
 }
 
+function resetTimers() {
+    lastFire = performance.now();
+    lastSecond = 0;
+    totalTime = 0;
+}
+
 function resetPipes() {
+    pipeNumber = 0;
     pipes.clear();
 }
 
@@ -56,9 +64,9 @@ function resetExplosions() {
 
 function resetHelicopter() {
     helicopter.x = 80;
-    helicopter.y = canvas.height - 270 + 5 * Math.cos(framesPassed/15);
+    helicopter.y = canvas.height - 270 + 5;
     helicopter.frame = 0;
-    helicopter.bladeSpeed = 0;
+    helicopter.bladeSpeed = 5;
     helicopter.velocity = 0;
 }
 
@@ -210,7 +218,6 @@ var pipes = {
             }
             pipe.x -= 2;
             if (pipe.x < -50) {
-                console.log(this.pipeArray[i].ghosts);
                 this.pipeArray.splice(i, 1);
                 score++;
                 i--;
@@ -235,7 +242,6 @@ var pipes = {
 
 // Sprites
 var heli;
-var heliAnimationFrame = 0;
 
 var img = new Image();
 img.src = 'assets/newSheet.png';

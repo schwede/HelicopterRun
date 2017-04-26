@@ -3,6 +3,7 @@ function startReplay(index) {
   // Set up the replay
   let currentReplay = replays[index];
   Math.seed = currentReplay.seed;
+  console.log('Setting seed:', Math.seed);
 
   input = InputFeeder(currentReplay);
 
@@ -12,12 +13,13 @@ function startReplay(index) {
 
 // Override game over condition
 handleGameOver = () => {
-  console.log('Game over condition');
   explosionSound.play();
 
   gameState = states.end;
   gameOver = true;
 };
+
+input.disable();
 
 // Creating a mock input object
 function InputFeeder(replay) {
@@ -25,10 +27,17 @@ function InputFeeder(replay) {
   let data = replay;
   let frameCount = 0;
   let index = 0;
+  let first = true;
 
   that.update = () => {
     if(data.jumpFrames[index] === frameCount) {
+      if (first) {
+        gameState = states.play;
+        first = false;
+      }
+
       if(gameState !== states.end) {
+        console.log(`Doing jump ${index} out of ${data.jumpFrames.length}`);
         helicopter.processJump();
         index++;
       }

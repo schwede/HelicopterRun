@@ -1,15 +1,20 @@
 var lastFire = performance.now();
+var timeStep = 1 / 60 * 1000;
+var fps = 0;
+var lastSecond = 0;
+var totalTime = 0;
 
 function init() {
-  Math.seed = performance.now();
+  Math.seed = Math.round(performance.now());
+  console.log('Generating seed:', Math.seed);
   replay.seed = Math.seed;
 
   input.registerKeyPress(config.thrust, () => {
     if(gameState != states.end) {
       gameState = states.play;
 
-      replay.jumpFrames.push(framesPassed);
       helicopter.processJump();
+      replay.jumpFrames.push(framesPassed);
     }
   });
 }
@@ -44,7 +49,6 @@ function sendScore() {
 }
 
 function handleGameOver() {
-  console.log('Game over condition');
   explosionSound.play();
 
   // Server determines whether the score belongs on the leaderboard
@@ -65,14 +69,29 @@ function handleGameOver() {
 }
 
 function handleDied() {
+  console.log(`Player dead. Game ran at ${fps} fps`);
   input.unregisterAllCommands();
 }
 
 function gameLoop() {
   var timePassed = performance.now() - lastFire;
+  totalTime += timePassed;
+  lastSecond += timePassed;
   lastFire = performance.now();
-  update(timePassed);
-  render(timePassed);
+
+  if(lastSecond >= 1000) {
+    fps = Math.round(framesPassed / (totalTime / 1000));
+    lastSecond = 0;
+  }
+
+  // Set to 60 FPS
+  if(timePassed >= timeStep) {
+    update(timePassed);
+    render(timePassed);
+
+    fps++;
+  }
+
   requestAnimationFrame(gameLoop);
 }
 

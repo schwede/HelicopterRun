@@ -10,9 +10,7 @@ app.use(function(request, response, next) {
   next();
 });
 
-app.use(express.static(__dirname + '/public', {
-  maxage: 10 * 1000,
-}));
+app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.json());
 

@@ -140,7 +140,6 @@ let LocalStorage = (() => {
 
   // Save the replays to local storage as long as they are valid
   that.saveReplays = (newReplays) => {
-    console.log(newReplays);
     newReplays.sort((a, b) => {
       return b.score - a.score;
     });
