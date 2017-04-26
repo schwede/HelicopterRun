@@ -27,6 +27,8 @@ const particlesMinSize = 1;
 const particlesMaxSize = 5;
 const explosions = [];
 
+var animationRequest;
+
 // Game State
 var gameState = 0;
 var states = {
@@ -68,6 +70,7 @@ function resetHelicopter() {
     helicopter.frame = 0;
     helicopter.bladeSpeed = 5;
     helicopter.velocity = 0;
+    helicopter.rotation = 0;
 }
 
 // Game Elements

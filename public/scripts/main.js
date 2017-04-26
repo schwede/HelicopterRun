@@ -85,7 +85,7 @@ function gameLoop() {
   update(timePassed);
   render(timePassed);
 
-  requestAnimationFrame(gameLoop);
+  animationRequest = requestAnimationFrame(gameLoop);
   lastFire = performance.now();
 }
 
